@@ -1,0 +1,57 @@
+
+.searchSection {
+    margin-left: 34%;
+}
+.mainTitle {
+    color: darkcyan;
+    font-size: 35px;
+    width: 36vw;
+    margin: 20px;
+  }
+  
+  .inputSearch {
+    border: solid 1px cyan;
+    width: 200px;
+    height: 30px;
+    font-family: 'Righteous', cursive;
+  }
+
+  .searchBtn,
+  .resetBtn,
+  .deleteAllBtn {
+    border-radius: 5%;
+    background-color: lightcyan;
+    border: solid 1px cyan;
+    color: darkcyan;
+    cursor: pointer;
+    padding: 6px;
+    font-family: 'Righteous', cursive;
+  }
+
+  .containersBox {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 200px;
+  }
+
+  .containerBoxList {
+    width: 500px;
+    border: solid 2px cyan;
+  }
+
+  .containerBoxList-inside {
+    text-align: center;
+    background-color: pink;
+    height: 50px;
+  }
+
+  .boxTitle {
+    color: darkcyan;
+    font-size: 25px;
+    padding-top: 8px;
+  }
+
+  .boxList {
+    color: darkcyan;
+    font-size: 20px;
+  }
