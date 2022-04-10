@@ -1,10 +1,17 @@
 "use strict";
+function alternativeImage(url) {
+  if (url === "") {
+    return "https://via.placeholder.com/120x120/ffffff/666666/?text=drink";
+  } else {
+    return url;
+  }
+}
 function renderCoctail(coctailData) {
   const coctail = `<li class="card">
               <h3 class="card_title">${coctailData.strDrink}</h3>
               <img
               class="card_img"
-              src=${coctailData.strDrinkThumb}
+              src=${alternativeImage(coctailData.strDrinkThumb)}
               alt="Coctail"
             />
           </li>`;
@@ -36,4 +43,4 @@ inputSearchBtn.addEventListener("click", (event) => {
 inputSearchForm.addEventListener("submit", (event) => {
   event.preventDefault();
   fetchAndRender();
-  });
+});
