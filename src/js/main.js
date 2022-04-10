@@ -11,10 +11,22 @@ const boxListFavourites = document.querySelector(".js-boxListFavourites");
 //FUNCTIONS
 renderFavouriteCoctails();
 
+function removeFavouriteClass(drinkId) {
+  
+}
+
 function renderFavouriteCoctails() {
   boxListFavourites.innerHTML = "";
   for (const favouriteCoctailItem of favouriteCoctails) {
-    boxListFavourites.innerHTML += renderCoctail(favouriteCoctailItem);
+    boxListFavourites.innerHTML += renderCoctailFavourite(favouriteCoctailItem);
+  }
+  const allDeleteBtn = document.querySelectorAll(".js-deleteBtn");
+  for (const deleteBtn of allDeleteBtn) {
+    deleteBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      const drinkId = event.currentTarget.id;
+      deleteFromFavouriteList(drinkId);
+    });
   }
 }
 
@@ -24,6 +36,15 @@ function alternativeImage(url) {
   } else {
     return url;
   }
+}
+
+function deleteFromFavouriteList(drinkId) {
+  const drinkIndex = favouriteCoctails.findIndex((element) => {
+    return element.idDrink === drinkId;
+  });
+  favouriteCoctails.splice(drinkIndex, 1);
+  localStorage.setItem("favourites", JSON.stringify(favouriteCoctails));
+  renderFavouriteCoctails();
 }
 
 function renderCoctail(coctailData) {
@@ -37,8 +58,26 @@ function renderCoctail(coctailData) {
           </li>`;
   return coctail;
 }
+function renderCoctailFavourite(coctailData) {
+  const coctail = `<li class="drink-fav">
+              <div class="drink-fav_container"> <h3 class="drink-fav_title">${coctailData.strDrink}</h3>
+              <button id=${coctailData.idDrink} class="delete-btn js-deleteBtn"> x </button> </div>
+              <img
+              class="drink-fav_img"
+              src=${alternativeImage(coctailData.strDrinkThumb)}
+              alt="Coctail"
+            />
+          </li>`;
+  return coctail;
+}
 
-function renderCoctailList(coctailDataList) {
+function isInFavourites(drinkId) {
+  return favouriteCoctails.findIndex((element) => {
+    return element.idDrink === drinkId;
+  });
+}
+
+function renderCoctailList() {
   boxListFetch.innerHTML = "";
   for (const coctailItem of coctailDataList) {
     boxListFetch.innerHTML += renderCoctail(coctailItem);
@@ -47,23 +86,28 @@ function renderCoctailList(coctailDataList) {
   const allDrinks = document.querySelectorAll(".drink");
   for (const drink of allDrinks) {
     drink.addEventListener("click", addDrinkToFavourite);
+    if (isInFavourites(drink.id) !== -1) {
+      drink.classList.add("favourite");
+    }
   }
 }
 
 function addDrinkToFavourite(event) {
   event.preventDefault();
   const drinkId = event.currentTarget.id;
-  //saber si el coctail está en favs o no
-  const findFavourite = favouriteCoctails.findIndex((element) => {
-    return element.idDrink === drinkId;
-  });
-  if (findFavourite === -1) {
+  if (isInFavourites(drinkId) === -1) {
     const selectedDrink = coctailDataList.find(
       (element) => element.idDrink === drinkId
     );
     favouriteCoctails.push(selectedDrink);
+    event.currentTarget.classList.add("favourite");
     localStorage.setItem("favourites", JSON.stringify(favouriteCoctails));
     renderFavouriteCoctails();
+  }
+  else {
+    deleteFromFavouriteList(drinkId);
+    event.currentTarget.classList.remove("favourite");
+    renderCoctailList();
   }
 }
 
@@ -74,7 +118,7 @@ function fetchAndRender() {
     .then((response) => response.json())
     .then((searchInfo) => {
       coctailDataList = searchInfo.drinks;
-      renderCoctailList(coctailDataList);
+      renderCoctailList();
     });
 }
 // END OF FUNCTIONS
@@ -88,3 +132,4 @@ inputSearchForm.addEventListener("submit", (event) => {
   event.preventDefault();
   fetchAndRender();
 });
+

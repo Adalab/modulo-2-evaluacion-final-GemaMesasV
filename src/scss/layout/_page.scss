@@ -57,13 +57,19 @@
   border: dashed 1px pink;
 }
 
-.drink {
+.drink,
+.drink-fav {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 5px;
 
+  &_container {
+display: flex;
+justify-content: center;
+align-items: center;
+  }
   &_title {
     margin: 10px 0 10px;
     text-align: center;
@@ -73,4 +79,21 @@
   &_img {
     width: 120px;
   }
+
+}
+
+
+// special classes
+
+.favourite {
+  background-color: darkcyan;
+  color: white;
+}
+.delete-btn {
+  border: solid 1px fuchsia;
+  padding: 0 3px;
+  background-color: pink;
+  font-size: 12px;
+  height: 17px;
+  margin-left: 5px;
 }
