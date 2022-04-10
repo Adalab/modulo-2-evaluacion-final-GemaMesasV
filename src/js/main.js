@@ -8,13 +8,22 @@ const boxListFetch = document.querySelector(".js-boxListFetch");
 let coctailDataList = [];
 const favouriteCoctails = JSON.parse(localStorage.getItem("favourites")) || [];
 const boxListFavourites = document.querySelector(".js-boxListFavourites");
+const deleteList = document.querySelector(".js-deleteList");
+const resetBtn = document.querySelector(".js-resetBtn");
 //FUNCTIONS
 renderFavouriteCoctails();
 
-function removeFavouriteClass(drinkId) {
-  
+function resetList() {
+  inputSearch.value = "";
+  boxListFetch.innerHTML ="";
+  coctailDataList = [];
 }
-
+function deleteAllFavouriteList() {
+  favouriteCoctails.splice(0, favouriteCoctails.length);
+  localStorage.setItem("favourites", JSON.stringify(favouriteCoctails));
+  renderFavouriteCoctails();
+  renderCoctailList();
+}
 function renderFavouriteCoctails() {
   boxListFavourites.innerHTML = "";
   for (const favouriteCoctailItem of favouriteCoctails) {
@@ -26,6 +35,7 @@ function renderFavouriteCoctails() {
       event.preventDefault();
       const drinkId = event.currentTarget.id;
       deleteFromFavouriteList(drinkId);
+      renderCoctailList();
     });
   }
 }
@@ -133,3 +143,14 @@ inputSearchForm.addEventListener("submit", (event) => {
   fetchAndRender();
 });
 
+deleteList.addEventListener("click", (event) => {
+  event.preventDefault();
+  deleteAllFavouriteList();
+}
+);
+
+resetBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  resetList();
+}
+);
