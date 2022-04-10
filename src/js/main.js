@@ -6,19 +6,17 @@ const inputSearchBtn = document.querySelector(".js-btnSearch");
 const inputSearchForm = document.querySelector(".js-formSearch");
 const boxListFetch = document.querySelector(".js-boxListFetch");
 let coctailDataList = [];
-
-//FUNCTIONS
-
-const favouriteCoctails = [];
+const favouriteCoctails = JSON.parse(localStorage.getItem("favourites")) || [];
 const boxListFavourites = document.querySelector(".js-boxListFavourites");
+//FUNCTIONS
+renderFavouriteCoctails();
 
 function renderFavouriteCoctails() {
-    boxListFavourites.innerHTML = "";
-for (const favouriteCoctailItem of favouriteCoctails) {
+  boxListFavourites.innerHTML = "";
+  for (const favouriteCoctailItem of favouriteCoctails) {
     boxListFavourites.innerHTML += renderCoctail(favouriteCoctailItem);
   }
 }
-
 
 function alternativeImage(url) {
   if (url === "") {
@@ -38,9 +36,7 @@ function renderCoctail(coctailData) {
             />
           </li>`;
   return coctail;
-
 }
-
 
 function renderCoctailList(coctailDataList) {
   boxListFetch.innerHTML = "";
@@ -48,9 +44,8 @@ function renderCoctailList(coctailDataList) {
     boxListFetch.innerHTML += renderCoctail(coctailItem);
   }
 
-  const allDrinks = document.querySelectorAll('.drink');
+  const allDrinks = document.querySelectorAll(".drink");
   for (const drink of allDrinks) {
-
     drink.addEventListener("click", addDrinkToFavourite);
   }
 }
@@ -58,13 +53,19 @@ function renderCoctailList(coctailDataList) {
 function addDrinkToFavourite(event) {
   event.preventDefault();
   const drinkId = event.currentTarget.id;
-  const selectedDrink = coctailDataList.find((element) => element.idDrink === drinkId);
-  favouriteCoctails.push(selectedDrink);
-  renderFavouriteCoctails();
+  //saber si el coctail está en favs o no
+  const findFavourite = favouriteCoctails.findIndex((element) => {
+    return element.idDrink === drinkId;
+  });
+  if (findFavourite === -1) {
+    const selectedDrink = coctailDataList.find(
+      (element) => element.idDrink === drinkId
+    );
+    favouriteCoctails.push(selectedDrink);
+    localStorage.setItem("favourites", JSON.stringify(favouriteCoctails));
+    renderFavouriteCoctails();
+  }
 }
-
-// const names = ["María", "Lucía", "Susana", "Rocío", "Inmaculada"];
-// const longName = names.find((name) => name.length > 5);
 
 function fetchAndRender() {
   fetch(
