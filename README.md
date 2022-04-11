@@ -59,8 +59,12 @@ El ejercicio también tiene una parte de maquetación con HTML y Sass.
 
 ## Herramientas utilizadas:
 
-- Visual Studio Code: HTML (en partials) y SASS.
-
 - Web Starter Kit de Adalab.
 
+- Visual Studio Code.
+
+- HTML (en partials) y SASS.
+
 - JavaScript.
+
+- GitHub y GitHub Pages.
