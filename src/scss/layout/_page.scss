@@ -1,18 +1,22 @@
-.searchSection {
+.body {
+  background-image: linear-gradient(to left, pink, aliceblue);
+}
+.search-section {
   margin-left: 34%;
-}
-.mainTitle {
-  color: darkcyan;
-  font-size: 35px;
-  width: 36vw;
-  margin: 20px;
-}
 
-.inputSearch {
-  border: solid 1px cyan;
-  width: 200px;
-  height: 30px;
-  font-family: "Righteous", cursive;
+  &_title {
+    color: darkcyan;
+    font-size: 35px;
+    width: 36vw;
+    margin: 20px;
+  }
+
+  &_input {
+    border: solid 1px cyan;
+    width: 200px;
+    height: 30px;
+    font-family: $font-family;
+  }
 }
 
 .searchBtn,
@@ -24,30 +28,30 @@
   color: darkcyan;
   cursor: pointer;
   padding: 6px;
-  font-family: "Righteous", cursive;
+  font-family: $font-family;
 }
 
-.containersBox {
+.containers-box {
   display: flex;
   flex-direction: row;
   margin: 20px 200px;
-}
 
-.containerBoxList {
-  width: 500px;
-  border: solid 2px cyan;
-}
+  &_list {
+    width: 500px;
+    border: solid 2px cyan;
 
-.containerBoxList-inside {
-  text-align: center;
-  background-color: pink;
-  height: 50px;
-}
+    &-inside {
+      text-align: center;
+      background-color: pink;
+      height: 50px;
 
-.boxTitle {
-  color: darkcyan;
-  font-size: 25px;
-  padding-top: 8px;
+      &-title {
+        color: darkcyan;
+        font-size: 25px;
+        padding-top: 8px;
+      }
+    }
+  }
 }
 
 .boxList {
@@ -56,6 +60,8 @@
   margin: 10px;
 }
 
+// special classes
+
 .drink,
 .drink-fav {
   display: flex;
@@ -63,11 +69,13 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 5px;
+  margin-left: 30%;
+  width: 150px;
 
   &_container {
-display: flex;
-justify-content: center;
-align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &_title {
     margin: 10px 0 10px;
@@ -78,15 +86,14 @@ align-items: center;
   &_img {
     width: 120px;
   }
-
 }
-
-
-// special classes
 
 .favourite {
   background-color: darkcyan;
-  color: white;
+  color: pink;
+  padding-bottom: 30px;
+  margin-left: 30%;
+  width: 150px;
 }
 .delete-btn {
   border: solid 1px fuchsia;

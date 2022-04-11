@@ -1,6 +1,6 @@
 "use strict";
 
-// CONSTANTS FOR SEARCH SECTION
+// GLOBAL CONSTANTS
 const inputSearch = document.querySelector(".js-inputSearch");
 const inputSearchBtn = document.querySelector(".js-btnSearch");
 const inputSearchForm = document.querySelector(".js-formSearch");
@@ -10,12 +10,13 @@ const favouriteCoctails = JSON.parse(localStorage.getItem("favourites")) || [];
 const boxListFavourites = document.querySelector(".js-boxListFavourites");
 const deleteList = document.querySelector(".js-deleteList");
 const resetBtn = document.querySelector(".js-resetBtn");
+
 //FUNCTIONS
 renderFavouriteCoctails();
 
 function resetList() {
   inputSearch.value = "";
-  boxListFetch.innerHTML ="";
+  boxListFetch.innerHTML = "";
   coctailDataList = [];
 }
 function deleteAllFavouriteList() {
@@ -70,8 +71,12 @@ function renderCoctail(coctailData) {
 }
 function renderCoctailFavourite(coctailData) {
   const coctail = `<li class="drink-fav">
-              <div class="drink-fav_container"> <h3 class="drink-fav_title">${coctailData.strDrink}</h3>
-              <button id=${coctailData.idDrink} class="delete-btn js-deleteBtn"> x </button> </div>
+              <div class="drink-fav_container"> <h3 class="drink-fav_title">${
+                coctailData.strDrink
+              }</h3>
+              <button id=${
+                coctailData.idDrink
+              } class="delete-btn js-deleteBtn"> x </button> </div>
               <img
               class="drink-fav_img"
               src=${alternativeImage(coctailData.strDrinkThumb)}
@@ -113,8 +118,7 @@ function addDrinkToFavourite(event) {
     event.currentTarget.classList.add("favourite");
     localStorage.setItem("favourites", JSON.stringify(favouriteCoctails));
     renderFavouriteCoctails();
-  }
-  else {
+  } else {
     deleteFromFavouriteList(drinkId);
     event.currentTarget.classList.remove("favourite");
     renderCoctailList();
@@ -133,6 +137,7 @@ function fetchAndRender() {
 }
 // END OF FUNCTIONS
 
+//LISTENERS
 inputSearchBtn.addEventListener("click", (event) => {
   event.preventDefault();
   fetchAndRender();
@@ -146,11 +151,9 @@ inputSearchForm.addEventListener("submit", (event) => {
 deleteList.addEventListener("click", (event) => {
   event.preventDefault();
   deleteAllFavouriteList();
-}
-);
+});
 
 resetBtn.addEventListener("click", (event) => {
   event.preventDefault();
   resetList();
-}
-);
+});

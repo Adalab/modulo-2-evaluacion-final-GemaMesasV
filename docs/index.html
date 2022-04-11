@@ -1,46 +1,65 @@
 <!DOCTYPE html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="./assets/images/favicon.png"
+      type="image/x-icon"
+    />
+    <link rel="icon" href="./assets/images/favicon.png" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <title>Evaluación final - Módulo 2 - Gema Mesas Velázquez</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./assets/css/main.css">
-  <title>Evaluación final - Módulo 2 - Gema Mesas Velázquez</title>
-</head>
+  <body class="body">
+    <main>
+      <div class="search-section">
+        <h1 class="search-section_title">Buscador de Cócteles</h1>
 
-<body>
-  <main>
-    <div class="searchSection">
-    <h1 class="mainTitle">Buscador de Cócteles</h1>
-
-    <form class="js-formSearch" action="">
-      <input class="inputSearch js-inputSearch" type="text" placeholder="Ejemplo: mojito">
-      <input class="searchBtn js-btnSearch" type="button" value="Buscar">
-      <input class="resetBtn js-resetBtn" type="button" value="Borrar búsqueda">
-      
-    </form>
-  </div>
-    <div class="containersBox">
-      <section class="containerBoxList">
-        <div class="containerBoxList-inside">
-          <h2 class="boxTitle">Cócteles favoritos</h2>
-        </div>
-        <ul class="boxList js-boxListFavourites">
-        </ul>
-        <button class="deleteAllBtn js-deleteList" title="Borrar la lista completa">Borrar lista</button>
-      </section>
-      <section class="containerBoxList">
-        <div class="containerBoxList-inside">
-          <h2 class="boxTitle">Listado de la búsqueda</h2>
-        </div>
-        <ul class="boxList js-boxListFetch">
-        </ul>
-      </section>
-    </div>
-  </main>
-  <script src="./assets/js/main.js"></script>
-</body>
-
+        <form class="js-formSearch" action="">
+          <input
+            class="search-section_input js-inputSearch"
+            type="text"
+            placeholder="Ejemplo: mojito"
+          />
+          <input class="searchBtn js-btnSearch" type="button" value="Buscar" />
+          <input
+            class="resetBtn js-resetBtn"
+            type="button"
+            value="Borrar búsqueda"
+          />
+        </form>
+      </div>
+      <div class="containers-box">
+        <section class="containers-box_list">
+          <div class="containers-box_list-inside">
+            <h2 class="containers-box_list-inside-title">Cócteles favoritos</h2>
+          </div>
+          <ul class="boxList js-boxListFavourites"></ul>
+          <button
+            class="deleteAllBtn js-deleteList"
+            title="Borrar la lista completa"
+          >
+            Borrar lista
+          </button>
+        </section>
+        <section class="containers-box_list">
+          <div class="containers-box_list-inside">
+            <h2 class="containers-box_list-inside-title">
+              Listado de la búsqueda
+            </h2>
+          </div>
+          <ul class="boxList js-boxListFetch"></ul>
+        </section>
+      </div>
+    </main>
+    <script src="./assets/js/main.js"></script>
+  </body>
 </html>
