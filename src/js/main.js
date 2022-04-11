@@ -5,59 +5,17 @@ const inputSearch = document.querySelector(".js-inputSearch");
 const inputSearchBtn = document.querySelector(".js-btnSearch");
 const inputSearchForm = document.querySelector(".js-formSearch");
 const boxListFetch = document.querySelector(".js-boxListFetch");
-let coctailDataList = [];
-const favouriteCoctails = JSON.parse(localStorage.getItem("favourites")) || [];
 const boxListFavourites = document.querySelector(".js-boxListFavourites");
 const deleteList = document.querySelector(".js-deleteList");
 const resetBtn = document.querySelector(".js-resetBtn");
 
+//DRINKS ARRAYS
+let coctailDataList = [];
+const favouriteCoctails = JSON.parse(localStorage.getItem("favourites")) || [];
+
 //FUNCTIONS
-renderFavouriteCoctails();
 
-function resetList() {
-  inputSearch.value = "";
-  boxListFetch.innerHTML = "";
-  coctailDataList = [];
-}
-function deleteAllFavouriteList() {
-  favouriteCoctails.splice(0, favouriteCoctails.length);
-  localStorage.setItem("favourites", JSON.stringify(favouriteCoctails));
-  renderFavouriteCoctails();
-  renderCoctailList();
-}
-function renderFavouriteCoctails() {
-  boxListFavourites.innerHTML = "";
-  for (const favouriteCoctailItem of favouriteCoctails) {
-    boxListFavourites.innerHTML += renderCoctailFavourite(favouriteCoctailItem);
-  }
-  const allDeleteBtn = document.querySelectorAll(".js-deleteBtn");
-  for (const deleteBtn of allDeleteBtn) {
-    deleteBtn.addEventListener("click", (event) => {
-      event.preventDefault();
-      const drinkId = event.currentTarget.id;
-      deleteFromFavouriteList(drinkId);
-      renderCoctailList();
-    });
-  }
-}
-
-function alternativeImage(url) {
-  if (url === "") {
-    return "https://via.placeholder.com/120x120/ffffff/666666/?text=drink";
-  } else {
-    return url;
-  }
-}
-
-function deleteFromFavouriteList(drinkId) {
-  const drinkIndex = favouriteCoctails.findIndex((element) => {
-    return element.idDrink === drinkId;
-  });
-  favouriteCoctails.splice(drinkIndex, 1);
-  localStorage.setItem("favourites", JSON.stringify(favouriteCoctails));
-  renderFavouriteCoctails();
-}
-
+//SINGLE DRINK RENDERS
 function renderCoctail(coctailData) {
   const coctail = `<li id=${coctailData.idDrink} class="drink">
               <h3 class="drink_title">${coctailData.strDrink}</h3>
@@ -86,12 +44,7 @@ function renderCoctailFavourite(coctailData) {
   return coctail;
 }
 
-function isInFavourites(drinkId) {
-  return favouriteCoctails.findIndex((element) => {
-    return element.idDrink === drinkId;
-  });
-}
-
+//DRINK LIST RENDERS
 function renderCoctailList() {
   boxListFetch.innerHTML = "";
   for (const coctailItem of coctailDataList) {
@@ -105,6 +58,72 @@ function renderCoctailList() {
       drink.classList.add("favourite");
     }
   }
+}
+
+function renderFavouriteCoctails() {
+  boxListFavourites.innerHTML = "";
+  for (const favouriteCoctailItem of favouriteCoctails) {
+    boxListFavourites.innerHTML += renderCoctailFavourite(favouriteCoctailItem);
+  }
+  const allDeleteBtn = document.querySelectorAll(".js-deleteBtn");
+  for (const deleteBtn of allDeleteBtn) {
+    deleteBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      const drinkId = event.currentTarget.id;
+      deleteFromFavouriteList(drinkId);
+      renderCoctailList();
+    });
+  }
+}
+
+//FETCH API
+function fetchAndRender() {
+  fetch(
+    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputSearch.value}`
+  )
+    .then((response) => response.json())
+    .then((searchInfo) => {
+      coctailDataList = searchInfo.drinks;
+      renderCoctailList();
+    });
+}
+
+//DELETE FUNCTIONS
+function deleteAllFavouriteList() {
+  favouriteCoctails.splice(0, favouriteCoctails.length);
+  localStorage.setItem("favourites", JSON.stringify(favouriteCoctails));
+  renderFavouriteCoctails();
+  renderCoctailList();
+}
+
+function deleteFromFavouriteList(drinkId) {
+  const drinkIndex = favouriteCoctails.findIndex((element) => {
+    return element.idDrink === drinkId;
+  });
+  favouriteCoctails.splice(drinkIndex, 1);
+  localStorage.setItem("favourites", JSON.stringify(favouriteCoctails));
+  renderFavouriteCoctails();
+}
+
+// UTILS FUNCTIONS
+function resetList() {
+  inputSearch.value = "";
+  boxListFetch.innerHTML = "";
+  coctailDataList = [];
+}
+
+function alternativeImage(url) {
+  if (url === "") {
+    return "https://via.placeholder.com/120x120/ffffff/666666/?text=drink";
+  } else {
+    return url;
+  }
+}
+
+function isInFavourites(drinkId) {
+  return favouriteCoctails.findIndex((element) => {
+    return element.idDrink === drinkId;
+  });
 }
 
 function addDrinkToFavourite(event) {
@@ -125,17 +144,10 @@ function addDrinkToFavourite(event) {
   }
 }
 
-function fetchAndRender() {
-  fetch(
-    `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${inputSearch.value}`
-  )
-    .then((response) => response.json())
-    .then((searchInfo) => {
-      coctailDataList = searchInfo.drinks;
-      renderCoctailList();
-    });
-}
 // END OF FUNCTIONS
+
+//INITIALIZATION
+renderFavouriteCoctails();
 
 //LISTENERS
 inputSearchBtn.addEventListener("click", (event) => {

@@ -61,6 +61,6 @@ El ejercicio también tiene una parte de maquetación con HTML y Sass.
 
 - Visual Studio Code: HTML (en partials) y SASS.
 
-- Web Starter Kit de Adalab
+- Web Starter Kit de Adalab.
 
-- JavaScript
+- JavaScript.
