@@ -15,6 +15,16 @@ const favouriteCoctails = JSON.parse(localStorage.getItem("favourites")) || [];
 
 //FUNCTIONS
 
+function checkIfIsAlcoholic(strAlcoholic) {
+  if (strAlcoholic === "Alcoholic") {
+    return `<p>¡ Cuidado! Tiene alcohol
+    </p>`;
+  } else {
+    return `<p>No tiene alcohol
+  </p>`;
+  }
+}
+
 //SINGLE DRINK RENDERS
 function renderCoctail(coctailData) {
   const coctail = `<li id=${coctailData.idDrink} class="drink">
@@ -24,11 +34,12 @@ function renderCoctail(coctailData) {
               src=${alternativeImage(coctailData.strDrinkThumb)}
               alt="Coctail"
             />
+            <p>${checkIfIsAlcoholic(coctailData.strAlcoholic)}</p>
           </li>`;
   return coctail;
 }
 function renderCoctailFavourite(coctailData) {
-  const coctail = `<li class="drink-fav">
+  const coctail = `<li id=${coctailData.idDrink} class="drink-fav js-drinkFav">
               <div class="drink-fav_container"> <h3 class="drink-fav_title">${
                 coctailData.strDrink
               }</h3>
@@ -43,6 +54,17 @@ function renderCoctailFavourite(coctailData) {
           </li>`;
   return coctail;
 }
+
+//
+function CheckFavName(event) {
+  const strDrink = event.currentTarget.id;
+  const findNameCoctail = favouriteCoctails.find(
+    (drink) => drink.idDrink === strDrink
+  );
+
+  console.log(findNameCoctail.strDrink);
+}
+//
 
 //DRINK LIST RENDERS
 function renderCoctailList() {
@@ -69,10 +91,15 @@ function renderFavouriteCoctails() {
   for (const deleteBtn of allDeleteBtn) {
     deleteBtn.addEventListener("click", (event) => {
       event.preventDefault();
+
       const drinkId = event.currentTarget.id;
       deleteFromFavouriteList(drinkId);
       renderCoctailList();
     });
+  }
+  const drinkFavName = document.querySelectorAll(".js-drinkFav");
+  for (const drinkFavNameItem of drinkFavName) {
+    drinkFavNameItem.addEventListener("click", CheckFavName);
   }
 }
 
